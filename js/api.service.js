@@ -38,8 +38,8 @@ function checkPassword() {
     
 }
 async function Signup() {
-    let loginInput = document.getElementById("loginInput")
-    let passwordInput = document.getElementById("passwordInput")
+    let loginInput = document.getElementById("loginInput").value
+    let passwordInput = document.getElementById("passwordInput").value
 
     await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/signup/"+ loginInput + "/"+ passwordInput)
     .then(function (response) {
