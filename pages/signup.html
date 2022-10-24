@@ -14,24 +14,25 @@
 </head>
 <body>
     
-    <form class="col-6 bg-white p-4">
+    <div class="col-6 bg-white p-4">
         <h1>Inscription</h1>
 
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="loginInput" placeholder="name@example.com">
+            <input type="text" class="form-control" id="loginInput">
             <label for="loginInput">Username</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+            <input type="password" class="form-control" id="passwordInput">
             <label for="passwordInput">Password</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="checkPasswordInput" placeholder="Password">
+            <input type="password" class="form-control" id="checkPasswordInput">
             <label for="checkPasswordInput">Password</label>
         </div>
 
         <button onclick="checkPassword()">Inscription</button>
-    </form>
+        <a href="./index.html">Se connecter ?</a>
+    </div>
 
     <script src="../js/api.service.js"></script>
     <script 
