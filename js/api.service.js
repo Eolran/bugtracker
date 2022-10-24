@@ -31,7 +31,7 @@ function checkPassword() {
     let checkPasswordInput = document.getElementById("checkPasswordInput").value
 
     if (passwordInput == checkPasswordInput) {
-        Signup;
+        Signup();
     } else {
         alert("Les mots de passe ne sont pas identiques. Veuillez vérifier.")
     }
