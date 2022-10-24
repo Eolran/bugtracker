@@ -11,8 +11,8 @@ fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
     .catch(error => console.log('error', error));
 
 async function Login() {
-    let loginInput = document.getElementById("loginInput")
-    let passwordInput = document.getElementById("passwordInput")
+    let loginInput = document.getElementById("loginInput").value
+    let passwordInput = document.getElementById("passwordInput").value
 
     await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/login/"+ loginInput + "/"+ passwordInput)
     .then(function (response) {
@@ -27,8 +27,8 @@ async function Login() {
 
 //Fonction Inscription
 function checkPassword() {
-    let passwordInput = document.getElementById("passwordInput")
-    let checkPasswordInput = document.getElementById("checkPasswordInput")
+    let passwordInput = document.getElementById("passwordInput").value
+    let checkPasswordInput = document.getElementById("checkPasswordInput").value
 
     if (passwordInput == checkPasswordInput) {
         Signup;
