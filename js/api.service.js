@@ -66,3 +66,44 @@ async function Signup() {
     })
     .catch(error => console.log('error', error));
 }
+
+//Fonction Liste
+async function bugsList() {
+    let bugsTableBody = document.getElementById("bugListBody");
+    bugsTableBody.innerHTML =""
+    const token = localStorage.getItem("token");
+    let userID = 0;
+
+    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/list/" + token + "/" + userID)
+    .then(function (response) {
+        return response.json()
+    })
+    .then(function (result) {
+        JSON.stringify(result)
+        let bugList = result.result.bug;
+
+        bugList.forEach(element => {
+            bugsTableBody.innerHTML += 
+            `<tr>
+                <td>
+                    <h3>${element.title}</h3>
+                    <span>${element.description}</span>
+                </td>
+                <td>${element.user_id}</td>
+                <td>
+                    <select name="" id="">
+                        <option value="">State 0</option>
+                        <option value="">State 1</option>
+                        <option value="">State 2</option>
+                    </select>
+                </td>
+                <td>
+                    <button>Supprimer</button>
+                </td>
+            </tr>`
+        });
+
+        console.log(bugList);
+    })
+    .catch(error => console.log('error', error));
+}

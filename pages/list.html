@@ -1,23 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BugList</title>
 
     <link rel="stylesheet" href="../css/base.css">
-    <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet" 
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
-<body>
-    
 
-    <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
-    crossorigin="anonymous"></script>
+<body>
+    <header>
+        <!-- As a heading -->
+        <nav class="navbar navbar-expand-lg bg-light py-4">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">BugTracker</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" onclick="bugsList()">Liste</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">A traiter</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#addBug">
+                                Ajouter
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="col-10 my-5 mx-auto bg-white p-4">
+        <table id="bugList" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-4">Titre</th>
+                    <th class="col-4">Développeur</th>
+                    <th class="col-2">État</th>
+                    <th class="col-2"></th>
+                </tr>
+            </thead>
+            <tbody id="bugListBody">
+                <tr>
+                    <td>Bug</td>
+                    <td>Jean</td>
+                    <td>
+                        <select name="bug1" id="bug1">
+                            <option value="">State 0</option>
+                            <option value="">State 1</option>
+                            <option value="">State 2</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button>Supprimer</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bug</td>
+                    <td>Michel</td>
+                    <td>
+                        <select name="bug2" id="bug2">
+                            <option value="">State 0</option>
+                            <option value="">State 1</option>
+                            <option value="">State 2</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button>Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addBug" tabindex="-1" aria-labelledby="addBugLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addBugLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="bugTitle" placeholder="Titre">
+                            <label for="bugTitle">Titre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="description" id="bugDesc" style="height: 100px"></textarea>
+                            <label for="bugDesc">Description</label>
+                          </div>
+
+                        <button type="submit">Ajouter un bug</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.service.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
