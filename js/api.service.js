@@ -10,6 +10,7 @@ fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
     })
     .catch(error => console.log('error', error));
 
+//Fonction connexion
 async function Login() {
     let loginInput = document.getElementById("loginInput").value
     let passwordInput = document.getElementById("passwordInput").value
@@ -21,6 +22,13 @@ async function Login() {
     .then(function (result) {
         JSON.stringify(result)
         console.log(result.result)
+
+        let token = result.result.token;
+        localStorage.setItem("token", token);
+
+        if (token) {
+            window.location ="./list.html"
+        }
     })
     .catch(error => console.log('error', error));
 }
@@ -48,6 +56,13 @@ async function Signup() {
     .then(function (result) {
         JSON.stringify(result)
         console.log(result.result)
+        
+        let token = result.result.token;
+        localStorage.setItem("token", token);
+
+        if (token) {
+            window.location ="./list.html"
+        }
     })
     .catch(error => console.log('error', error));
 }
