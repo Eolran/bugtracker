@@ -98,7 +98,7 @@ async function bugsList() {
                     </select>
                 </td>
                 <td>
-                    <button>Supprimer</button>
+                    <button onclick="Delete(${element.id})">Supprimer</button>
                 </td>
             </tr>`
         });
@@ -107,3 +107,18 @@ async function bugsList() {
     })
     .catch(error => console.log('error', error));
 }
+
+
+//Fonction Delete Bug
+async function Delete(bugID) {
+    const token = localStorage.getItem("token");
+
+    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/delete/" + token + "/" + bugID)
+    .then(function () {
+        bugsList();
+    })
+    .catch(error => console.log('error', error));
+}
+
+// var formItems = {"title":"TestTitle",
+//     "description":"testDescription"};
