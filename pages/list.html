@@ -25,18 +25,24 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" onclick="bugsList(0)">Liste Complète</a>
+                            <a class="nav-link active" onclick="bugsList(0)">Actualiser</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" onclick="bugsList(450)">Ma Liste</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">A traiter</a>
+                            <a class="nav-link active" onclick="bugsList(0, true)">A traiter</a>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#addBug">
                                 Ajouter
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#Logout">
+                                Deconnexion
                             </button>
                         </li>
                     </ul>
@@ -61,7 +67,7 @@
         </table>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal ADD -->
     <div class="modal fade" id="addBug" tabindex="-1" aria-labelledby="addBugLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -86,6 +92,24 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addBug()">Ajouter à la liste</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Logout -->
+    <div class="modal fade" id="Logout" tabindex="-1" aria-labelledby="LogoutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="LogoutLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Voulez vous vraiment vous deconnecter ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="Logout()">Oui</button>
                 </div>
             </div>
         </div>

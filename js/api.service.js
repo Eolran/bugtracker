@@ -1,14 +1,20 @@
 //http://greenvelvet.alwaysdata.net/bugTracker/api/
 
-fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
+async function Ping() {
+    const ping = await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
     .then(function (response) {
         return response.json()
     })
     .then(function (result) {
         JSON.stringify(result)
         console.log(result.result)
+        ping 
+        return result.result.ready;
     })
     .catch(error => console.log('error', error));
+
+    return ping;
+}
 
 //Fonction connexion
 async function Login() {
@@ -72,16 +78,15 @@ async function Signup() {
 }
 
 //Fonction Liste
-async function bugsList(ID) {
+async function bugsList(ID, state) {
+    const token = localStorage.getItem("token");
     let userList = await usersList();
     // let userList = localStorage.getItem("userList").split(",");
-    console.log(userList);
-
+    
     let bugsTableBody = document.getElementById("bugListBody");
     bugsTableBody.innerHTML =""
-    const token = localStorage.getItem("token");
+    
     let userID = 0;
-
     if (ID != 0) {
         userID = localStorage.getItem("ID");
     }
@@ -93,6 +98,15 @@ async function bugsList(ID) {
     .then(function (result) {
         JSON.stringify(result)
         let bugList = result.result.bug;
+        if (state) {
+            temp = [];
+            for (let i = 0; i < bugList.length; i++) {
+                if (bugList[i].state == 0) {
+                    temp.push(bugList[i]);
+                }
+            }
+            bugList = temp;
+        }
 
         bugList.forEach(element => {
             bugsTableBody.innerHTML += 
@@ -104,9 +118,9 @@ async function bugsList(ID) {
                 <td>${userList[element?.user_id]}</td>
                 <td>
                     <select name="" id="${element.id}State" onchange="changeState(${element.id}, this.value)">
-                        <option value="0">State 0</option>
-                        <option value="1">State 1</option>
-                        <option value="2">State 2</option>
+                        <option value="0">Non traité</option>
+                        <option value="1">En traitement</option>
+                        <option value="2">Traité</option>
                     </select>
                 </td>
                 <td>
@@ -128,7 +142,7 @@ async function bugsList(ID) {
 
         console.log(bugList);
     })
-    .catch(error => console.log('error', error));
+    .catch(error => window.location ="./index.html");
 }
 
 
@@ -164,10 +178,10 @@ async function addBug() {
                 </td>
                 <td>${username}</td>
                 <td>
-                    <select name="" id="${result.result.id}State" onchange="changeState(${result.result.id}, this.value")>
-                        <option value="0">State 0</option>
-                        <option value="1">State 1</option>
-                        <option value="2">State 2</option>
+                    <select name="" id="${result.result.id}State" onchange="changeState(${result.result.id}, this.value)">
+                        <option value="0">Non traité</option>
+                        <option value="1">En traitement</option>
+                        <option value="2">Traité</option>
                     </select>
                 </td>
                 <td>
@@ -218,4 +232,17 @@ async function usersList() {
     })
     .catch(error => console.log('error', error));
     return userList
+}
+
+
+//Fonction Logout
+async function Logout() {
+    const token = localStorage.getItem("token");
+
+    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/logout/" + token)
+    .then(function () {
+        localStorage.clear();
+        window.location ="./index.html";
+    })
+    .catch(error => console.log('error', error));
 }
