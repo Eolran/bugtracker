@@ -144,7 +144,7 @@ async function bugsList(ID, state) {
         bugList.forEach(element => {
             bugsTableBody.innerHTML += 
             `<tr class="align-middle p-3">
-                <td>
+                <td style="max-width:150px; overflow-x:scroll; white-space:nowrap">
                     <h4>${element.title}</h4>
                     <i>${element.description}</i>
                 </td>
@@ -189,6 +189,11 @@ async function addBug() {
         "title": document.getElementById("bugAddTitle").value,
         "description": document.getElementById("bugAddDesc").value
     };
+
+    if (formItems.title == "" || formItems.description == "") {
+        alert("Un des champs n'est pas rempli. Veuillez remplir le formulaire.")
+        return
+    }
 
     var options = {
         method: 'POST',
