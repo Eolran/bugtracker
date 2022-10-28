@@ -12,26 +12,33 @@
     rel="stylesheet" 
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
-<body>
+
+<body onload="Ping()">
     
-    <div class="col-6 bg-white p-4">
-        <h1>Inscription</h1>
+    <div class="d-flex flex-column h-100">
+        <div class="m-auto text-center mb-4 mt-5">
+            <img class="col-4" src="https://assets.webiconspng.com/uploads/2016/12/Bug-Transparent-Icon.png" alt="bugImg">
+            <h1>BugTracker</h1>
+        </div>
+        <form class="col-lg-6 col-md-8 col-10 bg-white p-4 shadow m-auto mt-5">
+            <h2 class="text-center mb-4">Inscription</h2>
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="loginInput" placeholder="Input">
-            <label for="loginInput">Username</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
-            <label for="passwordInput">Password</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="checkPasswordInput" placeholder="Password Check">
-            <label for="checkPasswordInput">Password</label>
-        </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="loginInput" placeholder="Input" autocomplete="username">
+                <label for="loginInput">Nom d'utilisateur</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password" autocomplete="password">
+                <label for="passwordInput">Mot de passe</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="checkPasswordInput" placeholder="Password Check" autocomplete="password">
+                <label for="checkPasswordInput">Répéter le mot de passe</label>
+            </div>
 
-        <button onclick="checkPassword()">Inscription</button>
-        <a href="./index.html">Se connecter ?</a>
+            <button type="button" class="me-3 btn btn-primary" onclick="checkPassword()">Inscription</button>
+            <a href="./index.html">Se connecter ?</a>
+        </form>
     </div>
 
     <script src="../js/api.service.js"></script>

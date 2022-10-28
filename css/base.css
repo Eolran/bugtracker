@@ -1,3 +1,4 @@
 body {
-    background-color: rgb(194, 194, 194) !important
+    background-color: rgb(194, 194, 194) !important;
+    min-height: 100vh;
 }
