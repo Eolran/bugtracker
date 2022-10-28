@@ -157,7 +157,10 @@ async function bugsList(ID, state) {
                     </select>
                 </td>
                 <td class="text-end px-3">
-                    <button class=" btn btn-danger" onclick="Delete(${element.id})"><i class="fa-regular fa-trash-can"></i></button>
+                    <button data-bs-toggle="modal" data-bs-target="#DeleteModal" data-bs-whatever="${element.id}"
+                    class=" btn btn-danger">
+                    <i class="fa-regular fa-trash-can"></i>
+                    </button>
                 </td>
             </tr>`
 

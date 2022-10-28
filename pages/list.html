@@ -107,21 +107,40 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="LogoutLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="LogoutLabel">Déconnexion</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Voulez vous vraiment vous deconnecter ?
+                    Voulez vous vraiment vous déconnecter ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Non</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="Logout()">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="DeleteModalLabel">Supprimer un bug</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Voulez vous vraiment supprimer ce bug ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="Logout()">Oui</button>
+                    <button id="deleteButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Oui</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="../js/api.service.js"></script>
+    <script src="../js/deleteModal.js"></script>
     <script>
         bugsList(0);
     </script>
