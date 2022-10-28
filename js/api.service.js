@@ -1,19 +1,41 @@
 //http://greenvelvet.alwaysdata.net/bugTracker/api/
 
 async function Ping() {
-    const ping = await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
+    const token = localStorage.getItem("token");
+    let user = localStorage.getItem("username");
+    if (user == undefined) {
+        user = "Utilisateur";
+    }
+
+    if (token != undefined) {
+        
+        
+        document.querySelector("form").innerHTML = `
+        
+            <div class="d-flex flex-column">
+                <h2 class="text-center mb-4">${user}, Vous êtes déjà connecté(e) ou bien votre session à expiré.</h2>
+        
+                <div class="mx-auto">
+                    <a class="btn btn-primary" href="./list.html">Revenir au Dashboard</a>
+                    <button type="button" class="btn btn-primary" onclick="Logout()">Déconnexion</button>
+                </div>
+            </div>
+        
+        `
+
+        return
+    }
+
+    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/ping")
     .then(function (response) {
         return response.json()
     })
     .then(function (result) {
         JSON.stringify(result)
         console.log(result.result)
-        ping 
-        return result.result.ready;
     })
     .catch(error => console.log('error', error));
 
-    return ping;
 }
 
 //Fonction connexion
@@ -31,6 +53,10 @@ async function Login() {
         JSON.stringify(result)
         console.log(result.result)
 
+        if (result.result.status == "failure") {
+            window.alert("Compte invalide")
+        }
+
         let token = result.result.token;
         localStorage.setItem("token", token);
         localStorage.setItem("ID", result.result.id);
@@ -39,24 +65,31 @@ async function Login() {
             window.location ="./list.html"
         }
     })
-    .catch(error => console.log('error', error));
+    .catch(error => console.log(error));
 }
 
 //Fonction Inscription
 function checkPassword() {
-    let passwordInput = document.getElementById("passwordInput").value
-    let checkPasswordInput = document.getElementById("checkPasswordInput").value
+    let loginInput = document.getElementById("loginInput").value;
+    let passwordInput = document.getElementById("passwordInput").value;
+    let checkPasswordInput = document.getElementById("checkPasswordInput").value;
 
     if (passwordInput == checkPasswordInput) {
         Signup();
     } else {
         alert("Les mots de passe ne sont pas identiques. Veuillez vérifier.")
+        return;
     }
     
 }
 async function Signup() {
     let loginInput = document.getElementById("loginInput").value
     let passwordInput = document.getElementById("passwordInput").value
+
+    if (loginInput == "" || passwordInput == "") {
+        alert("L'un des champs n'est pas correctement rempli");
+        return
+    }
 
     await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/signup/"+ loginInput + "/"+ passwordInput)
     .then(function (response) {
@@ -74,7 +107,7 @@ async function Signup() {
             window.location ="./list.html"
         }
     })
-    .catch(error => console.log('error', error));
+    .catch(error => console.log(error));
 }
 
 //Fonction Liste
@@ -110,21 +143,21 @@ async function bugsList(ID, state) {
 
         bugList.forEach(element => {
             bugsTableBody.innerHTML += 
-            `<tr>
+            `<tr class="align-middle p-3">
                 <td>
-                    <h3>${element.title}</h3>
-                    <span>${element.description}</span>
+                    <h4>${element.title}</h4>
+                    <i>${element.description}</i>
                 </td>
                 <td>${userList[element?.user_id]}</td>
                 <td>
-                    <select name="" id="${element.id}State" onchange="changeState(${element.id}, this.value)">
-                        <option value="0">Non traité</option>
-                        <option value="1">En traitement</option>
-                        <option value="2">Traité</option>
+                    <select class="border-0 bg-transparent py-2 border-bottom" id="${element.id}State" onchange="changeState(${element.id}, this.value)">
+                        <option value="0">Non traité </option>
+                        <option value="1">En traitement </option>
+                        <option value="2">Traité </option>
                     </select>
                 </td>
-                <td>
-                    <button onclick="Delete(${element.id})">Supprimer</button>
+                <td class="text-end px-3">
+                    <button class=" btn btn-danger" onclick="Delete(${element.id})"><i class="fa-regular fa-trash-can"></i></button>
                 </td>
             </tr>`
 
@@ -171,21 +204,21 @@ async function addBug() {
         JSON.stringify(result)
 
         bugsTableBody.innerHTML += 
-            `<tr>
+            `<tr class="align-middle py-3 px-2">
                 <td>
-                    <h3>${formItems.title}</h3>
+                    <h4>${formItems.title}</h4>
                     <span>${formItems.description}</span>
                 </td>
                 <td>${username}</td>
                 <td>
-                    <select name="" id="${result.result.id}State" onchange="changeState(${result.result.id}, this.value)">
+                    <select class="border-0 bg-transparent py-2 border-bottom" id="${result.result.id}State" onchange="changeState(${result.result.id}, this.value)">
                         <option value="0">Non traité</option>
                         <option value="1">En traitement</option>
                         <option value="2">Traité</option>
                     </select>
                 </td>
-                <td>
-                    <button onclick="Delete(${result.result.id})">Supprimer</button>
+                <td class="text-end px-3">
+                    <button class=" btn btn-danger" onclick="Delete(${result.result.id})"><i class="fa-regular fa-trash-can"></i></button>
                 </td>
             </tr>`
 
