@@ -43,8 +43,6 @@ async function Login() {
     let loginInput = document.getElementById("loginInput").value;
     let passwordInput = document.getElementById("passwordInput").value;
 
-    localStorage.setItem("username", loginInput);
-
     await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/login/"+ loginInput + "/"+ passwordInput)
     .then(function (response) {
         return response.json()
@@ -55,9 +53,11 @@ async function Login() {
 
         if (result.result.status == "failure") {
             window.alert("Compte invalide")
+            return
         }
 
         let token = result.result.token;
+        localStorage.setItem("username", loginInput);
         localStorage.setItem("token", token);
         localStorage.setItem("ID", result.result.id);
 
@@ -86,6 +86,8 @@ async function Signup() {
     let loginInput = document.getElementById("loginInput").value
     let passwordInput = document.getElementById("passwordInput").value
 
+    
+
     if (loginInput == "" || passwordInput == "") {
         alert("L'un des champs n'est pas correctement rempli");
         return
@@ -98,10 +100,16 @@ async function Signup() {
     .then(function (result) {
         JSON.stringify(result)
         console.log(result.result)
+
+        if (result.result.status == "failure") {
+            window.alert("Compte invalide où déjà enregistré")
+            return
+        }
         
         let token = result.result.token;
         localStorage.setItem("token", token);
         localStorage.setItem("ID", result.result.id);
+        localStorage.setItem("username", loginInput);
 
         if (token) {
             window.location ="./list.html"
@@ -148,7 +156,7 @@ async function bugsList(ID, state) {
                     <h4>${element.title}</h4>
                     <i>${element.description}</i>
                 </td>
-                <td>${userList[element?.user_id]}</td>
+                <td>${userList[element.user_id]}</td>
                 <td>
                     <select class="border-0 bg-transparent py-2 border-bottom" id="${element.id}State" onchange="changeState(${element.id}, this.value)">
                         <option value="0">Non traité </option>
@@ -178,7 +186,7 @@ async function bugsList(ID, state) {
 
         console.log(bugList);
     })
-    .catch(error => window.location ="./index.html");
+    .catch(error => console.log(error));
 }
 
 
@@ -203,8 +211,9 @@ async function addBug() {
     let bugsTableBody = document.getElementById("bugListBody");
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
+    const user_id = localStorage.getItem("ID");
 
-    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/add/" + token + "/450", options)
+    await fetch("http://greenvelvet.alwaysdata.net/bugTracker/api/add/" + token + "/" + user_id, options)
     .then(function (response) {
         return response.json()
     })
